@@ -1,7 +1,11 @@
 import Image from "next/image";
-import symbolImage from "@/public/landings/sardagna/svg/long/symbol.svg";
+import type { TimelineData } from "@/types/property";
 
-export default function TimelineSection() {
+interface TimelineSectionProps {
+  data: TimelineData;
+}
+
+export default function TimelineSection({ data }: TimelineSectionProps) {
   return (
     <section
       id="timeline"
@@ -12,16 +16,15 @@ export default function TimelineSection() {
           <div className="">
             <Image
               alt="icona"
-              src={symbolImage}
+              src={data.symbolImage}
               className="w-64 sm:w-96 xl:w-[27rem] h-auto opacity-10 relative -top-7"
             />
           </div>
           <div className="relative flex-shrink-0 -mt-20 sm:-mt-26 xl:mt-0 xl:-ml-24">
-            <h2 className="text-sardagna-primary text-3.5xl sm:text-4.5xl font-semibold max-w-[22ch] !leading-tight text-center xl:text-left">
-              Un progetto immobiliare curato in ogni dettaglio e firmato{" "}
-              <span className="underline">Pisetta Costruzioni</span>,
-              un&apos;impresa con oltre 50 anni di storia.
-            </h2>
+            <h2
+              className="text-sardagna-primary text-3.5xl sm:text-4.5xl font-semibold max-w-[22ch] !leading-tight text-center xl:text-left"
+              dangerouslySetInnerHTML={{ __html: data.title }}
+            />
           </div>
         </div>
         <div className="relative h-full flex justify-end flex-grow">
@@ -34,10 +37,10 @@ export default function TimelineSection() {
               </div>
               <div>
                 <span className="text-gray-400 text-xl !leading-none">
-                  Inizio lavori
+                  {data.constructionStart.label}
                 </span>
                 <h4 className="text-black font-semibold text-2xl !leading-relaxed">
-                  Primavera 2023
+                  {data.constructionStart.date}
                 </h4>
               </div>
             </div>
@@ -47,10 +50,10 @@ export default function TimelineSection() {
               </div>
               <div>
                 <span className="text-gray-400 text-xl !leading-none">
-                  Fine lavori
+                  {data.constructionEnd.label}
                 </span>
                 <h4 className="text-black font-semibold text-2xl !leading-relaxed">
-                  Autunno 2024
+                  {data.constructionEnd.date}
                 </h4>
               </div>
               <div className="absolute w-[1px] h-24 lg:h-32 border-l border-gray-300 top-10 left-5 -z-[1]" />

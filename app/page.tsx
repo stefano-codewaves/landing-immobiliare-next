@@ -8,24 +8,27 @@ import BenefitsSection from "@/components/BenefitsSection";
 import SwiperGallery from "@/components/SwiperGallery";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
+import { sardagnaData } from "@/data/properties/sardagna";
+import { tigliData } from "@/data/properties/tigli";
 
 export default function HomePage() {
-  const availableUnits = 12; // From GraphQL stub
+  // Load property data
+  const data = tigliData;
 
   return (
     <main className="w-full h-full xl:overflow-hidden flex flex-col space-y-30 xl:space-y-50">
       <div className="my-0">
-        <HeroSection availableUnits={availableUnits} />
-        <TimelineSection />
+        <HeroSection data={data.hero} />
+        <TimelineSection data={data.timeline} />
       </div>
-      <GallerySection />
-      <MapSection />
-      <FloorPlansSection />
-      <BenefitsSection />
-      <StatisticsSection />
-      <SwiperGallery />
+      <GallerySection data={data.gallery} />
+      <MapSection data={data.map} />
+      <FloorPlansSection data={data.floorPlans} />
+      <BenefitsSection data={data.benefits} />
+      <StatisticsSection data={data.statistics} />
+      <SwiperGallery data={data.swiperGallery} />
       <ContactForm />
-      <Footer />
+      <Footer data={data.footer} />
     </main>
   );
 }

@@ -5,36 +5,20 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Fancybox } from "@fancyapps/ui";
 import type { Swiper as SwiperType } from "swiper";
-import gallery1 from "@/public/landings/sardagna/gallery/1.jpg";
-import gallery2 from "@/public/landings/sardagna/gallery/2.jpg";
-import gallery3 from "@/public/landings/sardagna/gallery/3.jpg";
-import gallery4 from "@/public/landings/sardagna/gallery/4.jpg";
-import gallery5 from "@/public/landings/sardagna/gallery/5.jpg";
-import gallery6 from "@/public/landings/sardagna/gallery/6.jpg";
-import gallery7 from "@/public/landings/sardagna/gallery/7.jpg";
-import gallery8 from "@/public/landings/sardagna/gallery/8.jpg";
-import gallery9 from "@/public/landings/sardagna/gallery/9.jpg";
+import type { SwiperGalleryData } from "@/types/property";
 
 import "swiper/css";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
-export default function SwiperGallery() {
+interface SwiperGalleryProps {
+  data: SwiperGalleryData;
+}
+
+export default function SwiperGallery({ data }: SwiperGalleryProps) {
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const [percent, setPercent] = useState(0);
   const [hidePrevBtn, setHidePrevBtn] = useState(true);
   const [hideNextBtn, setHideNextBtn] = useState(false);
-
-  const gallery = [
-    gallery1,
-    gallery2,
-    gallery3,
-    gallery4,
-    gallery5,
-    gallery6,
-    gallery7,
-    gallery8,
-    gallery9,
-  ];
 
   useEffect(() => {
     Fancybox.bind('[data-fancybox="gallery"]', {
@@ -62,13 +46,15 @@ export default function SwiperGallery() {
   };
 
   return (
-    <section className="w-full max-w-screen slider-section py-24 sm:py-40 bg-[#eef3ef] relative !mt-20 sm:!mt-30">
+    <section
+      className="w-full max-w-screen slider-section py-24 sm:py-40 relative !mt-20 sm:!mt-30"
+      style={{ backgroundColor: data.backgroundColor }}
+    >
       <div className="absolute top-0 left-0 w-full h-full -z-10">
         <div
           className="absolute right-0 bottom-[calc(100%-1px)] h-48 sm:h-64 xl:h-96 w-1/2 !bg-contain hidden xl:block"
           style={{
-            background:
-              "url('/landings/sardagna/svg/long/decorations/gallery.png') right bottom no-repeat",
+            background: `url('${data.decorationImage}') right bottom no-repeat`,
           }}
         />
       </div>
@@ -194,14 +180,18 @@ export default function SwiperGallery() {
               },
             }}
           >
-            {gallery.map((pic, index) => (
+            {data.images.map((imageSrc, index) => (
               <SwiperSlide key={index}>
                 <a
-                  href={pic.src}
+                  href={imageSrc}
                   data-fancybox="gallery"
                   className="relative group"
                 >
-                  <Image alt="gallery" src={pic} className="w-full h-auto" />
+                  <Image
+                    alt="gallery"
+                    src={imageSrc}
+                    className="w-full h-auto"
+                  />
                   <span className="cover absolute top-0 left-0 w-full h-full bg-black block transition-all" />
                 </a>
               </SwiperSlide>
