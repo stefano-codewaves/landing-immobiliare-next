@@ -183,7 +183,7 @@ export default function SwiperGallery({ data }: SwiperGalleryProps) {
             {data.images.map((imageSrc, index) => (
               <SwiperSlide key={index}>
                 <a
-                  href={imageSrc}
+                  href={typeof imageSrc === "string" ? imageSrc : imageSrc.src}
                   data-fancybox="gallery"
                   className="relative group"
                 >
